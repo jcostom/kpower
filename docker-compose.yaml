@@ -17,7 +17,7 @@ services:
       - kpower
 
   plug1:
-    image: ghcr.io/jcostom/kpower:latest
+    image: ghcr.io/jcostom/kpower:0.1
     container_name: plug1
     restart: unless-stopped
     environment:
@@ -32,7 +32,7 @@ services:
       - kpower
   
   plug2:
-    image: ghcr.io/jcostom/kpower:latest
+    image: ghcr.io/jcostom/kpower:0.1
     container_name: plug2
     restart: unless-stopped
     environment:
@@ -47,7 +47,7 @@ services:
       - kpower
 
   plug3:
-    image: ghcr.io/jcostom/kpower:latest
+    image: ghcr.io/jcostom/kpower:0.1
     container_name: plug3
     restart: unless-stopped
     environment:
@@ -62,7 +62,7 @@ services:
       - kpower
 
   plug4:
-    image: ghcr.io/jcostom/kpower:latest
+    image: ghcr.io/jcostom/kpower:0.1
     container_name: plug4
     restart: unless-stopped
     environment:
