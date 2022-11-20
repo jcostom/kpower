@@ -16,7 +16,7 @@ docker volume create influx-config
 docker run --name influxdb -d \
   -p 8086:8086 \
   --volume influx-data:/var/lib/influxdb2 \
-  --volume influx-config:/etc/influxdb2/config.yml \
+  --volume influx-config:/etc/influxdb2 \
   influxdb:2.5
 # wait until the database server is ready
 until docker exec influxdb influx ping
