@@ -62,6 +62,8 @@ async def read_consumption(ip: str) -> float:
 
 
 def main() -> None:
+    # initial sleep to allow influxdb to get up & going
+    sleep(30)
     influx_client = InfluxDBClient(url=INFLUX_URL, token=INFLUX_TOKEN,
                                    org=INFLUX_ORG)
     write_api = influx_client.write_api(write_options=SYNCHRONOUS)
