@@ -1,0 +1,92 @@
+---
+version: '3'
+
+services:
+  influxdb:
+    image: influxdb:2.5
+    container_name: influxdb
+    volumes:
+      - influx-config:/etc/influxdb2
+      - influx-data:/var/lib/influxdb2
+    environment:
+      - INFLUXD_SESSION_LENGTH=14400
+    ports:
+      - 8086:8086
+    restart: unless-stopped
+    networks:
+      - kpower
+
+  plug1:
+    image: ghcr.io/jcostom/kpower:latest
+    container_name: plug1
+    restart: unless-stopped
+    environment:
+      - PLUG_IP: 10.10.10.10
+      - INFLUX_MEASUREMENT: plug1
+      - INFLUX_ORG: plugland
+      - INFLUX_BUCKET: plugs
+      - INFLUX_TOKEN: 'FIXME-Add-Your-Token-Here'
+      - INFLUX_URL: 'http://influxdb:8086'
+      - DEBUG: 0
+    networks:
+      - kpower
+  
+  plug2:
+    image: ghcr.io/jcostom/kpower:latest
+    container_name: plug2
+    restart: unless-stopped
+    environment:
+      - PLUG_IP: 11.11.11.11
+      - INFLUX_MEASUREMENT: plug2
+      - INFLUX_ORG: plugland
+      - INFLUX_BUCKET: plugs
+      - INFLUX_TOKEN: 'FIXME-Add-Your-Token-Here'
+      - INFLUX_URL: 'http://influxdb:8086'
+      - DEBUG: 0
+    networks:
+      - kpower
+
+  plug3:
+    image: ghcr.io/jcostom/kpower:latest
+    container_name: plug3
+    restart: unless-stopped
+    environment:
+      - PLUG_IP: 12.12.12.12
+      - INFLUX_MEASUREMENT: plug3
+      - INFLUX_ORG: plugland
+      - INFLUX_BUCKET: plugs
+      - INFLUX_TOKEN: 'FIXME-Add-Your-Token-Here'
+      - INFLUX_URL: 'http://influxdb:8086'
+      - DEBUG: 0
+    networks:
+      - kpower
+
+  plug4:
+    image: ghcr.io/jcostom/kpower:latest
+    container_name: plug4
+    restart: unless-stopped
+    environment:
+      - PLUG_IP: 13.13.13.13
+      - INFLUX_MEASUREMENT: plug4
+      - INFLUX_ORG: plugland
+      - INFLUX_BUCKET: plugs
+      - INFLUX_TOKEN: 'FIXME-Add-Your-Token-Here'
+      - INFLUX_URL: 'http://influxdb:8086'
+      - DEBUG: 0
+    networks:
+      - kpower
+  
+  
+volumes:
+  influx-config:
+    external: true
+  influx-data:
+    external: true
+
+networks:
+  kpower:
+    name: kpower
+    driver: bridge
+    attachable: true
+    driver_opts:
+      com.docker.network.bridge.name: br-kpower
