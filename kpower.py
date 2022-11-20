@@ -62,12 +62,14 @@ async def read_consumption(ip: str) -> float:
 
 
 def main() -> None:
+    logger.info(f"Startup: {USER_AGENT}")
     # initial sleep to allow influxdb to get up & going
+    logger.info("Taking a 30s nap so influxdb can get up and ready.")
     sleep(30)
+    logger.info("Nap time is over, let's get to work.")
     influx_client = InfluxDBClient(url=INFLUX_URL, token=INFLUX_TOKEN,
                                    org=INFLUX_ORG)
     write_api = influx_client.write_api(write_options=SYNCHRONOUS)
-    logger.info(f"Startup: {USER_AGENT}")
     while True:
         watts = asyncio.run(read_consumption(PLUG_IP))
         record = [
